@@ -4,7 +4,7 @@ wget https://artifacts.elastic.co/downloads/logstash/logstash-7.17.6-linux-x86_6
 sudo amazon-linux-extras install java-openjdk11
 mkdir -p /usr/share/logstash
 tar -xzvf /tmp/logstash-7.17.6-linux-x86_64.tar.gz -C /usr/share/logstash/
-/usr/share/logstash/logstash-7.17.6/bin/logstash-plugin install logstash-output-opensearch 
+/usr/share/logstash/logstash-7.17.6/bin/logstash-plugin install logstash-output-amazon_es
 mkdir -p /etc/logstash/conf.d
 cat <<EOF > /etc/logstash/conf.d/logstash.conf
 input {
@@ -14,17 +14,13 @@ input {
     }
 }
 output {
-  opensearch {
-    ecs_compatibility => disabled
-    hosts => "ElasticsearchEndpoint:443"
-    index => my-index
-    auth_type => {
-      type => 'aws_iam'
-      region => 'us-east-2'
-      service_name => 'aoss'
+    amazon_es {
+        hosts => ["$ES_ENDPOINT:443"]
+        region => "us-east-2"
+        aws_access_key_id => "************************"
+        aws_secret_access_key => "*********************"
+        index => "production-logs-%{+YYYY.MM.dd}"
     }
-    default_server_major_version => 2
-    legacy_template => false
-  }
 }
 EOF
+
