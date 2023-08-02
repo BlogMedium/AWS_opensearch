@@ -1,1 +1,13 @@
-# AWS_opensearch
+# Provision Opensearch using terraform and ingest logs from Ec2
+```
+git clone 
+terraform apply
+
+Once Opensearch cluster is up and running 
+
+* Modify the ES_ENDPOINT
+run logstash
+bin/logstash -f /path/to/your/logstash-config.conf
+
+````
+
