@@ -1,6 +1,8 @@
 # Provision Opensearch using terraform and ingest logs from Ec2
 ```
-git clone 
+git clone
+terraform init
+terraform plan
 terraform apply
 
 Once Opensearch cluster is up and running 
