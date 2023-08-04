@@ -1,0 +1,82 @@
+{
+    "policy_id": "Index_management_policy",
+    "description": "Index are migrated to each phase based on the index age and eventually when the index is 4 days old, this gets deleted.",
+    "last_updated_time": 1687847912911,
+    "schema_version": 1,
+    "error_notification": null,
+    "default_state": "hot",
+    "states": [
+        {
+            "name": "hot",
+            "actions": [],
+            "transitions": [
+                {
+                    "state_name": "warm",
+                    "conditions": {
+                        "min_index_age": "1d"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "warm",
+            "actions": [
+                {
+                    "retry": {
+                        "count": 5,
+                        "backoff": "exponential",
+                        "delay": "1h"
+                    },
+                    "warm_migration": {}
+                }
+            ],
+            "transitions": [
+                {
+                    "state_name": "cold",
+                    "conditions": {
+                        "min_index_age": "2d"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "cold",
+            "actions": [
+                {
+                    "cold_migration": {
+                        "start_time": null,
+                        "end_time": null,
+                        "timestamp_field": "@timestamp",
+                        "ignore": "none"
+                    }
+                }
+            ],
+            "transitions": [
+                {
+                    "state_name": "delete",
+                    "conditions": {
+                        "min_index_age": "4d"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "delete",
+            "actions": [
+                {
+                    "cold_delete": {}
+                }
+            ],
+            "transitions": []
+        }
+    ],
+    "ism_template": [
+        {
+            "index_patterns": [
+                "*"
+            ],
+            "priority": 0,
+            "last_updated_time": 1687259149438
+        }
+    ]
+}
