@@ -6,7 +6,7 @@ terraform apply
 Once Opensearch cluster is up and running 
 
 * Modify the ES_ENDPOINT
-run logstash
+* To Start logstash
 bin/logstash -f /path/to/your/logstash-config.conf
 
 ````
