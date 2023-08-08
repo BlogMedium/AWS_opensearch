@@ -9,6 +9,7 @@ Once Opensearch cluster is up and running
 
 * Modify the Elk_ENDPOINT
 * To Start logstash
+* add access_key and secret key
 
 /usr/share/logstash/logstash-8.9.0/bin/logstash -f /path/to/your/logstash-config.conf
 
