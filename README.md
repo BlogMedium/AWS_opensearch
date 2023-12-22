@@ -7,11 +7,12 @@ terraform apply
 
 Once Opensearch cluster is up and running 
 
-* Modify the Elk_ENDPOINT
-* To Start logstash
-* add access_key and secret key
+* Execute the script file logstash_install.sh file on the ec2 instance.
+* Make sure to modify the end_point ()
+  - access key
+  - secret key
 
-/usr/share/logstash/logstash-8.9.0/bin/logstash -f /path/to/your/logstash-config.conf
+/usr/share/logstash/logstash-8.11.3/bin/logstash -f /etc/logstash/conf.d/logstash.conf
 
 ````
 
