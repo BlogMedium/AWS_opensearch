@@ -64,7 +64,7 @@ resource "aws_instance" "web" {
   ami           = data.aws_ami.logstast-ami.id
   instance_type = var.instance_type
   vpc_security_group_ids = [aws_security_group.logstash-sg.id]
-  user_data = "${file("install_logstash.sh")}"
+  #user_data = "${file("install_logstash.sh")}"
 
   tags = {
     Name = "logstash_instance"
