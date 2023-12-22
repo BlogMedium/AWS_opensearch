@@ -1,10 +1,12 @@
 #!/bin/bash
 
-wget https://artifacts.elastic.co/downloads/logstash/logstash-7.17.6-linux-x86_64.tar.gz /tmp
+wget https://artifacts.elastic.co/downloads/logstash/logstash-8.11.3-linux-x86_64.tar.gz /tmp
 sudo amazon-linux-extras install java-openjdk11
+sudo dnf install java-11-amazon-corretto-devel
+
 mkdir -p /usr/share/logstash
-tar -xzvf /tmp/logstash-7.17.6-linux-x86_64.tar.gz -C /usr/share/logstash/
-/usr/share/logstash/logstash-7.17.6/bin/logstash-plugin install logstash-output-amazon_es
+tar -xzvf /tmp/logstash-8.11.3-linux-x86_64.tar.gz -C /usr/share/logstash/
+/usr/share/logstash/logstash-8.11.3/bin/logstash-plugin install logstash-output-amazon_es
 mkdir -p /etc/logstash/conf.d
 cat <<EOF > /etc/logstash/conf.d/logstash.conf
 input {
