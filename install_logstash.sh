@@ -26,3 +26,5 @@ output {
 }
 EOF
 
+/usr/share/logstash/logstash-8.12.0/bin/logstash -f /etc/logstash/conf.d/logstash.conf
+
